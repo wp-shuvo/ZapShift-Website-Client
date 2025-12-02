@@ -4,6 +4,10 @@ import Home from '../Pages/Home';
 import ErrorPage from '../Components/ErrorPage/ErrorPage';
 import MainLayouts from '../Layouts/MainLayouts';
 import Coverage from '../Pages/Coverage/Coverage';
+import AboutUs from '../Pages/AboutUs/AboutUs';
+import AuthLayout from '../Layouts/AuthLayout';
+import Login from '../Pages/Auth/Login/Login';
+import Register from '../Pages/Auth/Register/Register';
 
 const Routes = createBrowserRouter([
   {
@@ -24,6 +28,24 @@ const Routes = createBrowserRouter([
         path: '/coverage',
         element: <Coverage />,
         loader: () => fetch('./warehouses.json').then(res => res.json()),
+      },
+      {
+        path: '/aboutUs',
+        element: <AboutUs />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: '/login',
+        Component: Login,
+      },
+      {
+        path: '/register',
+        Component: Register,
       },
     ],
   },

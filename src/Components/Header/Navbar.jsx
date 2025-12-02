@@ -104,7 +104,36 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <div className="flex items-center gap-4">
+          {/* Sign In button */}
+          <Link
+            to="/login"
+            className="btn rounded-lg border border-gray-300 bg-white px-6"
+          >
+            Sign In
+          </Link>
+
+          {/* Be a rider button */}
+          <button className="btn rounded-lg bg-lime-300 text-black font-semibold px-6 flex items-center gap-2">
+            Be a rider
+            <span className="w-8 h-8 rounded-full bg-black flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.8}
+                stroke="white"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 17L17 7m0 0H8m9 0v9"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
