@@ -7,7 +7,7 @@ const Navbar = () => {
     <>
       <li>
         <NavLink
-          to="/"
+          to="/Services"
           className={({ isActive }) =>
             `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
           }

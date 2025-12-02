@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router';
 import Home from '../Pages/Home';
 import ErrorPage from '../Components/ErrorPage/ErrorPage';
 import MainLayouts from '../Layouts/MainLayouts';
+import Coverage from '../Pages/Coverage/Coverage';
 
 const Routes = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const Routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/coverage',
+        element: <Coverage />,
+        loader: () => fetch('./warehouses.json').then(res => res.json()),
       },
     ],
   },
