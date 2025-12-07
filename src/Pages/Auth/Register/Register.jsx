@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
+import toast from 'react-hot-toast';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import axios from 'axios';
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,9 +20,35 @@ const Register = () => {
 
   const handleRegister = data => {
     console.log(data);
+    const profilrImage = data.image[0];
     createUser(data.email, data.password)
       .then(result => {
         console.log(result.user);
+        //store image to hosting api
+        const formData = new FormData();
+        formData.append('image', profilrImage);
+        const imageApiURL = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMAGE_HOSTING_KEY
+        }`;
+
+        axios.post(imageApiURL, formData).then(res => {
+          console.log('after image uplode', res.data.data.display_url);
+          // update user profile
+          const userProfile = {
+            displayName: data.name,
+            photoURL: res.data.data.display_url,
+          };
+          updateUserProfile(userProfile)
+            .then(() => {
+              console.log('user profile updated');
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        });
+        toast.success('User Registered Successfully');
+        navigate(location.state || '/');
+        data.reset();
       })
       .catch(error => {
         console.log(error);
@@ -100,21 +131,13 @@ const Register = () => {
                 </p>
               )}
             </div>
-
-            {/* Forgot Password */}
-            <div className="mt-2 mb-4">
-              <a className="text-sm text-gray-500 hover:underline cursor-pointer">
-                Forget Password?
-              </a>
-            </div>
-
-            {/* Login Button */}
+            {/* register Button */}
             <button className="btn bg-lime-300 text-black w-full rounded-md border-none hover:bg-lime-400">
               Register
             </button>
           </form>
 
-          {/* Register Link */}
+          {/* login Link */}
           <p className="mt-4 text-sm text-gray-600">
             Already have account?{' '}
             <Link
@@ -133,14 +156,7 @@ const Register = () => {
           </div>
 
           {/* Google Login */}
-          <button className="btn w-full bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200">
-            <img
-              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-              alt="Google"
-              className="w-5 h-5 mr-2"
-            />
-            Login with google
-          </button>
+          <SocialLogin />
         </div>
       </div>
     </div>

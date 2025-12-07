@@ -1,9 +1,35 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import useAuth from '../../../Hooks/useAuth';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
+  const { singInuser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleLogin = data => {
+    console.log(data);
+    singInuser(data.email, data.password)
+      .then(result => {
+        console.log(result.user);
+        toast.success('User Logged In Successfully');
+        navigate(location.state || '/');
+        data.reset();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="">
@@ -14,11 +40,12 @@ const Login = () => {
           <h1 className="text-4xl font-bold mb-2">Welcome Back</h1>
           <p className="text-gray-500 mb-8">Login with ZapShift</p>
 
-          <form>
+          <form onSubmit={handleSubmit(handleLogin)}>
             {/* Email */}
             <label className="block mb-2 font-medium">Email</label>
             <input
               type="email"
+              {...register('email', { required: true })}
               placeholder="Email"
               className="input input-bordered w-full mb-4 bg-white"
             />
@@ -29,6 +56,7 @@ const Login = () => {
               <input
                 type={showPass ? 'text' : 'password'}
                 name="password"
+                {...register('password', { required: true, minLength: 6 })}
                 className="input input-bordered w-full mb-4 bg-white z-0"
                 placeholder="Password"
               />
@@ -42,15 +70,21 @@ const Login = () => {
 
             {/* Forgot Password */}
             <div className="mt-2 mb-4">
-              <a className="text-sm text-gray-500 hover:underline cursor-pointer">
+              <Link
+                to="/forget-password"
+                className="text-sm text-gray-500 hover:underline cursor-pointer"
+              >
                 Forget Password?
-              </a>
+              </Link>
             </div>
 
             {/* Login Button */}
             <button className="btn bg-lime-300 text-black w-full rounded-md border-none hover:bg-lime-400">
               Login
             </button>
+            {errors.password?.type === 'required' && (
+              <p className="text-red-500 text-sm">Password is required</p>
+            )}
           </form>
 
           {/* Register Link */}
@@ -72,14 +106,7 @@ const Login = () => {
           </div>
 
           {/* Google Login */}
-          <button className="btn w-full bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200">
-            <img
-              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-              alt="Google"
-              className="w-5 h-5 mr-2"
-            />
-            Login with google
-          </button>
+          <SocialLogin />
         </div>
       </div>
     </div>

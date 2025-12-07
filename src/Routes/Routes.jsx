@@ -8,6 +8,10 @@ import AboutUs from '../Pages/AboutUs/AboutUs';
 import AuthLayout from '../Layouts/AuthLayout';
 import Login from '../Pages/Auth/Login/Login';
 import Register from '../Pages/Auth/Register/Register';
+import ForgetPassword from '../Pages/Auth/ForgetPassword/ForgetPassword';
+import Rider from '../Pages/Rider/Rider';
+import PrivateRoutes from './PrivateRoutes';
+import SendParcel from '../Pages/SendParcel/SendParcel';
 
 const Routes = createBrowserRouter([
   {
@@ -33,6 +37,23 @@ const Routes = createBrowserRouter([
         path: '/aboutUs',
         element: <AboutUs />,
       },
+      {
+        path: '/be-a-rider',
+        element: (
+          <PrivateRoutes>
+            <Rider />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: '/SendParcel',
+        element: (
+          <PrivateRoutes>
+            <SendParcel />
+          </PrivateRoutes>
+        ),
+        loader: () => fetch('./warehouses.json').then(res => res.json()),
+      },
     ],
   },
   {
@@ -46,6 +67,10 @@ const Routes = createBrowserRouter([
       {
         path: '/register',
         Component: Register,
+      },
+      {
+        path: '/forget-password',
+        Component: ForgetPassword,
       },
     ],
   },

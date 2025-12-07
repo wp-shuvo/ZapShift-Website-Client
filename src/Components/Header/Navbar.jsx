@@ -1,15 +1,32 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
 import NavLogo from '../../assets/img/logoNav.png';
+import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
+  const { user, singOutUser } = useAuth();
+
+  const handleSignOut = () => {
+    singOutUser()
+      .then(result => {
+        console.log(result);
+        toast.success('User Signed Out Successfully');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const links = (
     <>
       <li>
         <NavLink
           to="/Services"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           Services
@@ -17,9 +34,23 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+          to="/SendParcel"
+          className={({ isActive }) =>
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
+          }
+        >
+          Send Parcel
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/coverage"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           Coverage
@@ -29,7 +60,9 @@ const Navbar = () => {
         <NavLink
           to="/aboutUs"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           About Us
@@ -39,17 +72,35 @@ const Navbar = () => {
         <NavLink
           to="/pricing"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           Pricing
         </NavLink>
       </li>
+      {/* {user && (
+        <li>
+          <NavLink
+            to="/be-a-rider"
+            className={({ isActive }) =>
+              `font-semibold ${
+                isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+              }`
+            }
+          >
+            Join As Rider
+          </NavLink>
+        </li>
+      )} */}
       <li>
         <NavLink
           to="/blog"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           Blog
@@ -59,7 +110,9 @@ const Navbar = () => {
         <NavLink
           to="/contact"
           className={({ isActive }) =>
-            `font-semibold ${isActive ? 'text-[#33929d]' : 'text-black'}`
+            `font-semibold ${
+              isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+            }`
           }
         >
           Contact
@@ -91,7 +144,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm font-extrabold dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
@@ -101,20 +154,32 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal font-extrabold px-1">{links}</ul>
       </div>
       <div className="navbar-end">
         <div className="flex items-center gap-4">
           {/* Sign In button */}
-          <Link
-            to="/login"
-            className="btn rounded-lg border border-gray-300 bg-white px-6"
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="btn rounded-lg border border-gray-300 bg-white px-6"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="btn rounded-lg border border-gray-300 bg-white px-6"
+            >
+              Sign In
+            </Link>
+          )}
 
           {/* Be a rider button */}
-          <button className="btn rounded-lg bg-lime-300 text-black font-semibold px-6 flex items-center gap-2">
+          <Link
+            to="/be-a-rider"
+            className="btn rounded-lg bg-lime-300 text-black font-semibold px-6 flex items-center gap-2"
+          >
             Be a rider
             <span className="w-8 h-8 rounded-full bg-black flex items-center justify-center">
               <svg
@@ -132,7 +197,7 @@ const Navbar = () => {
                 />
               </svg>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
