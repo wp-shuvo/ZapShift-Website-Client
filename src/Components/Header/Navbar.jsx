@@ -80,20 +80,6 @@ const Navbar = () => {
           Pricing
         </NavLink>
       </li>
-      {/* {user && (
-        <li>
-          <NavLink
-            to="/be-a-rider"
-            className={({ isActive }) =>
-              `font-semibold ${
-                isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
-              }`
-            }
-          >
-            Join As Rider
-          </NavLink>
-        </li>
-      )} */}
       <li>
         <NavLink
           to="/blog"
@@ -118,6 +104,20 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard/my-parcels"
+            className={({ isActive }) =>
+              `font-semibold ${
+                isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+              }`
+            }
+          >
+            My Parcels
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
