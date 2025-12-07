@@ -181,7 +181,7 @@ const Navbar = () => {
             className="btn rounded-lg bg-lime-300 text-black font-semibold px-6 flex items-center gap-2"
           >
             Be a rider
-            <span className="w-8 h-8 rounded-full bg-black flex items-center justify-center">
+            <span className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

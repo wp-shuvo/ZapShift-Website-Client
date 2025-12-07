@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from '../../Hooks/useAuth';
 
 const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
   const [parcelType, setParcelType] = useState('Document');
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const serviceCenters = useLoaderData();
 
@@ -35,8 +39,8 @@ const SendParcel = () => {
     const isSmaeDistrict = data.senderDistrict === data.receiverDistrict;
 
     const parcelWeight = parseFloat(data.parcelWeight);
-
     let cost = 0;
+
     if (isDocument) {
       cost = isSmaeDistrict ? 60 : 80;
     } else {
@@ -45,12 +49,15 @@ const SendParcel = () => {
       } else {
         const minCharge = isSmaeDistrict ? 110 : 150;
         const extraWeight = parcelWeight - 3;
+
         const extraCharge = isSmaeDistrict
           ? extraWeight * 40
           : extraWeight * 40 + 40;
+
         cost = minCharge + extraCharge;
       }
     }
+    console.log('The total shipping cost is', cost);
     // toast.success(`The total shipping cost is $${cost}`);
     Swal.fire({
       title: 'Please Confirm The Cost?',
@@ -62,6 +69,11 @@ const SendParcel = () => {
       confirmButtonText: 'I agree',
     }).then(result => {
       if (result.isConfirmed) {
+        //save the data to the server
+        axiosSecure.post('/parcels', data).then(res => {
+          console.log('after saving parcel', res.data);
+        });
+
         Swal.fire({
           title: 'Confirmed!',
           text: 'Your parcel booking has been confirmed.',
@@ -142,6 +154,7 @@ const SendParcel = () => {
               <input
                 type="text"
                 required
+                defaultValue={user?.displayName}
                 {...register('senderName')}
                 placeholder="Sender Name"
                 className="input input-bordered w-full bg-white"
@@ -152,6 +165,7 @@ const SendParcel = () => {
               <input
                 type="email"
                 required
+                defaultValue={user?.email}
                 {...register('senderEmail')}
                 placeholder="Sender Email"
                 className="input input-bordered w-full bg-white"
