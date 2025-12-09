@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuth from '../../Hooks/useAuth';
@@ -10,6 +10,7 @@ const SendParcel = () => {
   const [parcelType, setParcelType] = useState('Document');
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const serviceCenters = useLoaderData();
 
@@ -59,6 +60,7 @@ const SendParcel = () => {
     }
     console.log('The total shipping cost is', cost);
     // toast.success(`The total shipping cost is $${cost}`);
+    data.cost = cost;
     Swal.fire({
       title: 'Please Confirm The Cost?',
       text: `The total shipping cost is ${cost} TK`,
@@ -72,13 +74,23 @@ const SendParcel = () => {
         //save the data to the server
         axiosSecure.post('/parcels', data).then(res => {
           console.log('after saving parcel', res.data);
+          if (res.data.insertedId) {
+            navigate('/dashboard/my-parcels');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your Parcel Has Created. Please Pay',
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          }
         });
 
-        Swal.fire({
-          title: 'Confirmed!',
-          text: 'Your parcel booking has been confirmed.',
-          icon: 'success',
-        });
+        // Swal.fire({
+        //   title: 'Confirmed!',
+        //   text: 'Your parcel booking has been confirmed.',
+        //   icon: 'success',
+        // });
       }
     });
   };

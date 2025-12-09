@@ -1,146 +1,179 @@
 import React from 'react';
-import { Outlet, NavLink } from 'react-router';
+import { Outlet, NavLink, Link } from 'react-router';
 import {
   FiHome,
   FiTruck,
   FiSettings,
   FiHelpCircle,
   FiLogOut,
+  FiMenu,
   FiBell,
 } from 'react-icons/fi';
+import logo from '../assets/img/logoNav.png';
+import useAuth from '../Hooks/useAuth';
+import { FaMoneyBillTransfer } from 'react-icons/fa6';
 
 const DashboardLayout = () => {
+  const { user } = useAuth();
+  const Menu = () => (
+    <nav className="flex flex-col px-4 py-6 space-y-1 text-[#03373d]">
+      <span className="text-xs font-bold text-gray-600 px-3">MENU</span>
+
+      <NavLink
+        to="/dashboard"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiHome /> Dashboard
+      </NavLink>
+
+      <NavLink
+        to="/dashboard/my-parcels"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiTruck /> My Parcels
+      </NavLink>
+
+      <NavLink
+        to="/dashboard/stores"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiHome /> Stores
+      </NavLink>
+
+      <NavLink
+        to="/dashboard/payment/"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FaMoneyBillTransfer /> Payments
+      </NavLink>
+
+      <NavLink
+        to="/dashboard/coverage"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiHome /> Coverage Area
+      </NavLink>
+
+      <span className="text-xs font-bold text-gray-400 px-3 mt-6">GENERAL</span>
+
+      <NavLink
+        to="/dashboard/settings"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiSettings /> Settings
+      </NavLink>
+
+      <NavLink
+        to="/dashboard/help"
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+          }`
+        }
+      >
+        <FiHelpCircle /> Help
+      </NavLink>
+
+      <NavLink
+        to="/logout"
+        className="flex items-center gap-3 px-3 py-2 rounded-lg font-medium text-red-500"
+      >
+        <FiLogOut /> Logout
+      </NavLink>
+    </nav>
+  );
+
   return (
-    <div className="drawer lg:drawer-open bg-gray-100 min-h-screen">
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+    <div className="flex min-h-screen bg-gray-100">
+      {/* ============ DESKTOP SIDEBAR ============ */}
+      <aside className="hidden lg:flex flex-col w-64 bg-white border-r shadow-sm">
+        <Link to="/" className="p-6">
+          <img src={logo} alt="ZapShift" className="h-12 object-contain" />
+        </Link>
 
-      {/* ============ MAIN CONTENT ============ */}
-      <div className="drawer-content flex flex-col">
-        {/* TOP NAVBAR */}
-        <div className="navbar bg-white shadow-sm px-4 lg:px-6 fixed top-0 left-0 right-0 z-30">
-          <div className="flex-none lg:hidden">
-            <label
-              htmlFor="dashboard-drawer"
-              className="btn btn-ghost btn-square"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
-                />
-              </svg>
-            </label>
-          </div>
+        <Menu />
+      </aside>
 
-          <div className="flex-1 lg:hidden">
-            <img src="/assets/logo.png" className="h-8" />
-          </div>
+      {/* ============ MOBILE TOP NAV ============ */}
+      <div className="lg:hidden fixed top-0 left-0 w-full bg-white shadow z-50 flex items-center justify-between px-4 py-3">
+        <label htmlFor="mobile-drawer" className="cursor-pointer">
+          <FiMenu size={22} />
+        </label>
 
-          {/* Right side user area */}
-          <div className="flex-none gap-4 hidden lg:flex ml-auto">
-            <FiBell className="text-xl cursor-pointer" />
+        <Link>
+          <img src={logo} className="h-9" />
+        </Link>
+        <FiBell size={22} />
+      </div>
 
-            <div className="flex items-center gap-3 px-2">
+      {/* Drawer Toggle */}
+      <input type="checkbox" id="mobile-drawer" className="peer hidden" />
+
+      {/* ============ MOBILE SIDEBAR ============ */}
+      <div className="fixed inset-0 z-40 transition-all duration-300 peer-checked:translate-x-0 -translate-x-full bg-black/40 lg:hidden">
+        <label htmlFor="mobile-drawer" className="absolute inset-0"></label>
+
+        <aside className="w-64 bg-white h-full shadow-xl p-4 absolute left-0 top-0">
+          <Link>
+            <img src={logo} className="h-12 mx-auto mb-6" />
+          </Link>
+          <Menu />
+        </aside>
+      </div>
+
+      {/* ============ MAIN CONTENT AREA ============ */}
+      <main className="flex-1 lg:ml-0 mt-16 lg:mt-0">
+        {/* DESKTOP TOP NAVBAR */}
+        <header className="hidden lg:flex justify-between items-center bg-white px-6 h-16 shadow-sm">
+          <div></div>
+
+          <div className="flex items-center gap-6">
+            <FiBell size={20} className="text-gray-600 cursor-pointer" />
+            <div className="flex items-center gap-3">
               <img
-                src="/assets/user.png"
+                src={user?.photoURL}
+                alt="Avatar"
                 className="w-10 h-10 rounded-full border"
               />
               <div>
-                <p className="font-semibold">Zahid Hossain</p>
-                <p className="text-gray-400 text-xs">Admin</p>
+                <p className="font-semibold">{user?.displayName}</p>
+                <p className="text-gray-400 text-sm">Admin</p>
               </div>
             </div>
           </div>
-        </div>
+        </header>
 
         {/* PAGE CONTENT */}
-        <div className="p-4 lg:p-8 mt-16 lg:mt-0">
+        <div className="p-6">
           <Outlet />
         </div>
-      </div>
-
-      {/* ============ SIDEBAR ============ */}
-      <div className="drawer-side z-40">
-        <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-
-        <aside className="w-64 bg-white min-h-full shadow-md flex flex-col">
-          {/* Logo */}
-          <div className="p-6 border-b">
-            <img src="/assets/logo.png" className="h-10" />
-          </div>
-
-          {/* MENU */}
-          <ul className="menu p-4 text-base-content flex-1 space-y-1">
-            <li className="menu-title text-xs opacity-70">MENU</li>
-
-            <MenuItem icon={<FiHome />} to="/dashboard" label="Dashboard" />
-            <MenuItem
-              icon={<FiTruck />}
-              to="/dashboard/deliveries"
-              label="All Deliveries"
-            />
-            <MenuItem icon={<FiHome />} to="/dashboard/stores" label="Stores" />
-            <MenuItem
-              icon={<FiHome />}
-              to="/dashboard/pricing"
-              label="Pricing Plan"
-            />
-            <MenuItem
-              icon={<FiHome />}
-              to="/dashboard/coverage"
-              label="Coverage Area"
-            />
-
-            <li className="menu-title mt-4 text-xs opacity-70">GENERAL</li>
-
-            <MenuItem
-              icon={<FiSettings />}
-              to="/dashboard/settings"
-              label="Settings"
-            />
-            <MenuItem
-              icon={<FiHelpCircle />}
-              to="/dashboard/help"
-              label="Help"
-            />
-
-            <li>
-              <NavLink
-                to="/logout"
-                className="flex items-center gap-3 text-red-600 font-semibold"
-              >
-                <FiLogOut /> Logout
-              </NavLink>
-            </li>
-          </ul>
-        </aside>
-      </div>
+      </main>
     </div>
   );
 };
 
 export default DashboardLayout;
-
-/* ----------------- MENU ITEM COMPONENT ---------------- */
-const MenuItem = ({ icon, to, label }) => (
-  <li>
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        `flex items-center gap-3 font-medium ${
-          isActive ? 'bg-gray-200 text-[#03373d]' : ''
-        }`
-      }
-    >
-      {icon} {label}
-    </NavLink>
-  </li>
-);
