@@ -19,6 +19,7 @@ import PaymentSuccess from '../Pages/Dashboard/Payment/PaymentSuccess';
 import PaymentCancel from '../Pages/Dashboard/Payment/PaymentCancel';
 import ContactUs from '../Pages/ContactUs/ContactUs';
 import PaymentHistory from '../Pages/Dashboard/PaymentHistory/PaymentHistory';
+import ApproveRiders from '../Pages/Dashboard/ApproveRider/ApproveRiders';
 
 const Routes = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ const Routes = createBrowserRouter([
             <Rider />
           </PrivateRoutes>
         ),
+        loader: () => fetch('./warehouses.json').then(res => res.json()),
       },
       {
         path: '/SendParcel',
@@ -112,6 +114,10 @@ const Routes = createBrowserRouter([
       {
         path: 'paymentHistory',
         element: <PaymentHistory />,
+      },
+      {
+        path: 'approve-rider',
+        element: <ApproveRiders />,
       },
     ],
   },

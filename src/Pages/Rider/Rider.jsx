@@ -1,12 +1,44 @@
 import React from 'react';
 import riderImg from '../../assets/img/agent-pending.png';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
+import { useLoaderData } from 'react-router';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+import useAuth from '../../Hooks/useAuth';
 
 const Rider = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, control } = useForm();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const serviceCenters = useLoaderData();
+
+  const regionsDupli = serviceCenters.map(center => center.region);
+  const regions = [...new Set(regionsDupli)];
+
+  const riderRegion = useWatch({
+    control,
+    name: 'riderRegion',
+  });
+
+  const districtByRegion = region => {
+    const regionDistrict = serviceCenters.filter(
+      center => center.region === region
+    );
+    const districts = regionDistrict.map(center => center.district);
+    return districts;
+  };
 
   const handleRiderSubmit = data => {
     console.log(data);
+    axiosSecure.post('/riders', data).then(res => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success(
+          'Your Rider Request Added Successfully.We will contact you soon.'
+        );
+      }
+    });
   };
 
   return (
@@ -27,6 +59,7 @@ const Rider = () => {
             <label className="block mb-2 font-medium">Your Name</label>
             <input
               type="text"
+              defaultValue={user?.displayName}
               {...register('name', { required: true })}
               placeholder="Your Name"
               className="input input-bordered w-full mb-4 bg-white"
@@ -47,6 +80,8 @@ const Rider = () => {
             <label className="block mb-2 font-medium">Your Email</label>
             <input
               type="email"
+              defaultValue={user?.email}
+              readOnly
               {...register('email', { required: true })}
               placeholder="Your Email"
               className="input input-bordered w-full mb-4 bg-white"
@@ -55,23 +90,31 @@ const Rider = () => {
             {/* Region */}
             <label className="block mb-2 font-medium">Your Region</label>
             <select
-              {...register('region')}
+              required
               className="select select-bordered w-full mb-4 bg-white"
+              {...register('riderRegion')}
             >
               <option>Select your Region</option>
-              <option>Dhaka</option>
-              <option>Chattogram</option>
+              {regions.map((region, idx) => (
+                <option key={idx} value={region}>
+                  {region}
+                </option>
+              ))}
             </select>
 
             {/* District */}
             <label className="block mb-2 font-medium">Your District</label>
             <select
-              {...register('district')}
+              required
               className="select select-bordered w-full mb-4 bg-white"
+              {...register('riderDistrict')}
             >
-              <option>Select your District</option>
-              <option>Mirpur</option>
-              <option>Banani</option>
+              <option>Select your Districts</option>
+              {districtByRegion(riderRegion).map((region, idx) => (
+                <option key={idx} value={region}>
+                  {region}
+                </option>
+              ))}
             </select>
 
             {/* NID */}
@@ -127,7 +170,7 @@ const Rider = () => {
 
             {/* Submit */}
             <button className="btn bg-lime-300 text-black w-full rounded-md border-none hover:bg-lime-400">
-              Submit
+              Join As Rider
             </button>
           </form>
         </div>

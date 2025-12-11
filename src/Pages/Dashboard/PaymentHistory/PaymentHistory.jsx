@@ -26,8 +26,8 @@ const PaymentHistory = () => {
 
       {/* Total Pay Card */}
       <div className="mb-10">
-        <div className="flex items-center p-4 bg-gray-100 rounded-lg w-fit">
-          <div className="p-3 bg-gray-200 rounded-full shadow mr-4">
+        <div className="flex items-center p-4 w-full bg-gray-200 rounded-lg">
+          <div className="p-3 bg-gray-300 rounded-full shadow mr-4">
             <MdOutlinePayments className="text-gray-600 w-6 h-6" />
           </div>
           <div>

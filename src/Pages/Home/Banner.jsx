@@ -36,7 +36,7 @@ const Banner = () => {
             </Link>
 
             <Link
-              // to="/rider"
+              to="/be-a-rider"
               className="bg-white px-6 py-3 rounded-xl font-semibold text-gray-900 border border-gray-300 hover:bg-gray-100 transition"
             >
               Be A Rider

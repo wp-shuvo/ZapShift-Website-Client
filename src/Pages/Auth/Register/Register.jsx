@@ -6,12 +6,15 @@ import useAuth from '../../../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
   const { createUser, updateUserProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
   const {
     register,
     handleSubmit,
@@ -32,11 +35,26 @@ const Register = () => {
         }`;
 
         axios.post(imageApiURL, formData).then(res => {
-          console.log('after image uplode', res.data.data.display_url);
+          const photoUrl = res.data.data.display_url;
+
+          // create user in database
+          const userInfo = {
+            displayName: data.name,
+            email: data.email,
+            photoURL: photoUrl,
+          };
+
+          axiosSecure.post('/users', userInfo).then(res => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              console.log('user created in the database');
+            }
+          });
+
           // update user profile
           const userProfile = {
             displayName: data.name,
-            photoURL: res.data.data.display_url,
+            photoURL: photoUrl,
           };
           updateUserProfile(userProfile)
             .then(() => {
@@ -48,7 +66,6 @@ const Register = () => {
         });
         toast.success('User Registered Successfully');
         navigate(location.state || '/');
-        data.reset();
       })
       .catch(error => {
         console.log(error);

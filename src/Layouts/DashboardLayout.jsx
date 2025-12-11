@@ -1,20 +1,34 @@
 import React from 'react';
-import { Outlet, NavLink, Link } from 'react-router';
+import { Outlet, NavLink, Link, useNavigate } from 'react-router';
 import {
-  FiHome,
   FiTruck,
   FiSettings,
   FiHelpCircle,
   FiLogOut,
   FiMenu,
   FiBell,
+  FiHome,
 } from 'react-icons/fi';
 import logo from '../assets/img/logoNav.png';
 import useAuth from '../Hooks/useAuth';
-import { FaMoneyBillTransfer } from 'react-icons/fa6';
+import { FaMoneyBillTransfer, FaMotorcycle } from 'react-icons/fa6';
+import toast from 'react-hot-toast';
 
 const DashboardLayout = () => {
-  const { user } = useAuth();
+  const { user, singOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    singOutUser()
+      .then(result => {
+        console.log(result);
+        toast.success('User Signed Out Successfully');
+        navigate('/');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const Menu = () => (
     <nav className="flex flex-col px-4 py-6 space-y-1 text-[#03373d]">
       <span className="text-xs font-bold text-gray-600 px-3">MENU</span>
@@ -53,23 +67,23 @@ const DashboardLayout = () => {
       </NavLink>
 
       <NavLink
-        to="/dashboard/coverage"
+        to="/dashboard/approve-rider"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
           }`
         }
       >
-        <FiHome /> Coverage Area
+        <FaMotorcycle /> Approve Rider
       </NavLink>
 
       <span className="text-xs font-bold text-gray-400 px-3 mt-6">GENERAL</span>
 
       <NavLink
-        to="/dashboard/settings"
+        // to="/dashboard/settings"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+            isActive ? ' text-[#03373d]' : 'text-gray-600'
           }`
         }
       >
@@ -77,10 +91,10 @@ const DashboardLayout = () => {
       </NavLink>
 
       <NavLink
-        to="/dashboard/help"
+        // to="/dashboard/help"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+            isActive ? ' text-[#03373d]' : 'text-gray-600'
           }`
         }
       >
@@ -88,7 +102,7 @@ const DashboardLayout = () => {
       </NavLink>
 
       <NavLink
-        to="/logout"
+        onClick={handleSignOut}
         className="flex items-center gap-3 px-3 py-2 rounded-lg font-medium text-red-500"
       >
         <FiLogOut /> Logout
@@ -150,7 +164,7 @@ const DashboardLayout = () => {
               />
               <div>
                 <p className="font-semibold">{user?.displayName}</p>
-                <p className="text-gray-400 text-sm">Admin</p>
+                <p className="text-gray-400 text-sm">{user?.email}</p>
               </div>
             </div>
           </div>
