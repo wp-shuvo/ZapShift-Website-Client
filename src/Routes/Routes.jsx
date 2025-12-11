@@ -18,6 +18,7 @@ import Payment from '../Pages/Dashboard/Payment/Payment';
 import PaymentSuccess from '../Pages/Dashboard/Payment/PaymentSuccess';
 import PaymentCancel from '../Pages/Dashboard/Payment/PaymentCancel';
 import ContactUs from '../Pages/ContactUs/ContactUs';
+import PaymentHistory from '../Pages/Dashboard/PaymentHistory/PaymentHistory';
 
 const Routes = createBrowserRouter([
   {
@@ -107,6 +108,10 @@ const Routes = createBrowserRouter([
       {
         path: 'payment-cancelled',
         element: <PaymentCancel />,
+      },
+      {
+        path: 'paymentHistory',
+        element: <PaymentHistory />,
       },
     ],
   },

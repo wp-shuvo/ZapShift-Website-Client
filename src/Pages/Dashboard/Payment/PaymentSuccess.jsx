@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { FiCheckCircle } from 'react-icons/fi';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
+  const [paymentInfo, setPaymentInfo] = useState({});
   const sessionId = searchParams.get('session_id');
   console.log(sessionId);
 
@@ -16,9 +17,13 @@ const PaymentSuccess = () => {
         .patch(`/payment-success?session_id=${sessionId}`)
         .then(res => {
           console.log(res.data);
+          setPaymentInfo({
+            transactionId: res.data.transactionId,
+            trackingId: res.data.trackingId,
+          });
         });
     }
-  }, [sessionId]);
+  }, [sessionId, axiousSecure]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200 px-4">
@@ -33,7 +38,22 @@ const PaymentSuccess = () => {
           Payment Successful!
         </h2>
 
-        {/* Subtitle */}
+        {/* TransationId */}
+        <p className="text-gray-600">
+          Your TransationId:{' '}
+          <span className="font-bold text-red-400">
+            {paymentInfo.transactionId}
+          </span>
+        </p>
+
+        {/* trackingId */}
+        <p className="text-gray-600 mb-6">
+          Your TransationId:{' '}
+          <span className="font-bold text-red-400">
+            {paymentInfo.trackingId}
+          </span>
+        </p>
+
         <p className="text-gray-600 mb-6">
           Your parcel payment has been completed successfully. Thank you for
           using our service!

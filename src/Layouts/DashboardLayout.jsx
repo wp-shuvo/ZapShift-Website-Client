@@ -42,25 +42,14 @@ const DashboardLayout = () => {
       </NavLink>
 
       <NavLink
-        to="/dashboard/stores"
+        to="/dashboard/paymentHistory"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
           }`
         }
       >
-        <FiHome /> Stores
-      </NavLink>
-
-      <NavLink
-        to="/dashboard/payment/"
-        className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
-          }`
-        }
-      >
-        <FaMoneyBillTransfer /> Payments
+        <FaMoneyBillTransfer /> Payments History
       </NavLink>
 
       <NavLink

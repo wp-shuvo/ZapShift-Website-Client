@@ -70,8 +70,8 @@ const MyParcel = () => {
           <table className="table">
             {/* head */}
             <thead>
-              <tr>
-                <th></th>
+              <tr className="bg-gray-100 text-gray-700">
+                <th>#</th>
                 <th>Parcel Name</th>
                 <th>Parcel Type</th>
                 <th>Sender Name</th>
@@ -90,7 +90,7 @@ const MyParcel = () => {
                   <td>{parcel.parcelType}</td>
                   <td>{parcel.senderName}</td>
                   <td>{parcel.receiverName}</td>
-                  <td>{parcel.cost}</td>
+                  <td>৳ {parcel.cost}</td>
                   <td>
                     {parcel.paymentStatus === 'paid' ? (
                       <span className="btn btn-soft btn-success">Paid</span>
