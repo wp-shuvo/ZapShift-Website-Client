@@ -162,14 +162,14 @@ const Navbar = () => {
           {user ? (
             <button
               onClick={handleSignOut}
-              className="btn rounded-lg border border-gray-300 bg-white px-6"
+              className="btn max-sm:hidden rounded-lg border border-gray-300 bg-white px-6"
             >
               Sign Out
             </button>
           ) : (
             <Link
               to="/login"
-              className="btn rounded-lg border border-gray-300 bg-white px-6"
+              className="btn max-sm:hidden rounded-lg border border-gray-300 bg-white px-6 "
             >
               Sign In
             </Link>
@@ -178,24 +178,26 @@ const Navbar = () => {
           {/* Be a rider button */}
           <Link
             to="/be-a-rider"
-            className="btn rounded-lg bg-lime-300 text-black font-semibold px-6 flex items-center gap-2"
+            className="btn rounded-lg max-sm:btn-sm bg-lime-300 text-black font-semibold px-6 flex items-center gap-2"
           >
             Be a rider
-            <span className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.8}
-                stroke="white"
-                className="w-4 h-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M7 17L17 7m0 0H8m9 0v9"
-                />
-              </svg>
+            <span className=" hidden md:block">
+              <span className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.8}
+                  stroke="white"
+                  className="w-4 h-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7 17L17 7m0 0H8m9 0v9"
+                  />
+                </svg>
+              </span>
             </span>
           </Link>
         </div>

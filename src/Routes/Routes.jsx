@@ -20,6 +20,9 @@ import PaymentCancel from '../Pages/Dashboard/Payment/PaymentCancel';
 import ContactUs from '../Pages/ContactUs/ContactUs';
 import PaymentHistory from '../Pages/Dashboard/PaymentHistory/PaymentHistory';
 import ApproveRiders from '../Pages/Dashboard/ApproveRider/ApproveRiders';
+import UserManagement from '../Pages/Dashboard/UserManagement/UserManagement';
+import AdminRoute from './AdminRoute';
+import AssignRider from '../Pages/Dashboard/AssignRider/AssignRider';
 
 const Routes = createBrowserRouter([
   {
@@ -116,8 +119,24 @@ const Routes = createBrowserRouter([
         element: <PaymentHistory />,
       },
       {
+        path: 'assignRider',
+        element: <AssignRider />,
+      },
+      {
         path: 'approve-rider',
-        element: <ApproveRiders />,
+        element: (
+          <AdminRoute>
+            <ApproveRiders />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: 'user-management',
+        element: (
+          <AdminRoute>
+            <UserManagement />
+          </AdminRoute>
+        ),
       },
     ],
   },

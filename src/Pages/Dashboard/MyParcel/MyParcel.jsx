@@ -74,8 +74,8 @@ const MyParcel = () => {
                 <th>#</th>
                 <th>Parcel Name</th>
                 <th>Parcel Type</th>
-                <th>Sender Name</th>
-                <th>Receiver Name</th>
+                <th>Tracking Id</th>
+                <th>Delivery Status</th>
                 <th>Amount</th>
                 <th>Payment Status</th>
                 <th>Action</th>
@@ -88,8 +88,8 @@ const MyParcel = () => {
                   <th>{index + 1}</th>
                   <td>{parcel.parcelName}</td>
                   <td>{parcel.parcelType}</td>
-                  <td>{parcel.senderName}</td>
-                  <td>{parcel.receiverName}</td>
+                  <td>{parcel.trackingId}</td>
+                  <td>{parcel.deliveryStatus}</td>
                   <td>৳ {parcel.cost}</td>
                   <td>
                     {parcel.paymentStatus === 'paid' ? (

@@ -13,10 +13,14 @@ import logo from '../assets/img/logoNav.png';
 import useAuth from '../Hooks/useAuth';
 import { FaMoneyBillTransfer, FaMotorcycle } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
+import { FaUserFriends } from 'react-icons/fa';
+import { RiEBike2Fill } from 'react-icons/ri';
+import useRole from '../Hooks/useRole';
 
 const DashboardLayout = () => {
   const { user, singOutUser } = useAuth();
   const navigate = useNavigate();
+  const { role } = useRole();
 
   const handleSignOut = () => {
     singOutUser()
@@ -43,39 +47,81 @@ const DashboardLayout = () => {
       >
         <FiHome /> Dashboard
       </NavLink>
+      {role === 'user' && (
+        <>
+          <NavLink
+            to="/dashboard/my-parcels"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <FiTruck /> My Parcels
+          </NavLink>
 
-      <NavLink
-        to="/dashboard/my-parcels"
-        className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
-          }`
-        }
-      >
-        <FiTruck /> My Parcels
-      </NavLink>
+          <NavLink
+            to="/dashboard/paymentHistory"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <FaMoneyBillTransfer /> Payments History
+          </NavLink>
+        </>
+      )}
 
-      <NavLink
-        to="/dashboard/paymentHistory"
-        className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
-          }`
-        }
-      >
-        <FaMoneyBillTransfer /> Payments History
-      </NavLink>
+      {role === 'rider' && (
+        <>
+          <NavLink
+            // to="/dashboard/assignRider"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <RiEBike2Fill /> Assign Rider
+          </NavLink>
+        </>
+      )}
+      {role === 'admin' && (
+        <>
+          <NavLink
+            to="/dashboard/approve-rider"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <FaMotorcycle /> Approve Rider
+          </NavLink>
+          <NavLink
+            to="/dashboard/user-management"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <FaUserFriends /> User Management
+          </NavLink>
 
-      <NavLink
-        to="/dashboard/approve-rider"
-        className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
-          }`
-        }
-      >
-        <FaMotorcycle /> Approve Rider
-      </NavLink>
+          <NavLink
+            to="/dashboard/assignRider"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <RiEBike2Fill /> Assign Rider
+          </NavLink>
+        </>
+      )}
 
       <span className="text-xs font-bold text-gray-400 px-3 mt-6">GENERAL</span>
 
@@ -163,8 +209,10 @@ const DashboardLayout = () => {
                 className="w-10 h-10 rounded-full border"
               />
               <div>
-                <p className="font-semibold">{user?.displayName}</p>
-                <p className="text-gray-400 text-sm">{user?.email}</p>
+                <p className="font-semibold">
+                  {user?.displayName}({role})
+                </p>
+                <p className="text-gray-400 text-sm font-bold">{user?.email}</p>
               </div>
             </div>
           </div>

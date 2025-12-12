@@ -24,15 +24,12 @@ const Banner = () => {
           <img src={img} className="w-full" alt="" />
 
           {/* Buttons */}
-          <div className="absolute left-30 bottom-20 flex items-center gap-4 z-20">
+          <div className="absolute max-sm:hidden left-30 bottom-20  flex items-center gap-4 z-20">
             <Link
               // to="/track"
               className="bg-[#C8E661] border-white border-2 px-6 py-3 rounded-xl font-semibold text-gray-900 flex items-center gap-2 hover:bg-[#b7d854] transition"
             >
               Track Your Parcel
-              <span className="bg-black text-[#C8E661] p-2 rounded-full">
-                {/* <FaArrowUpRight /> */}
-              </span>
             </Link>
 
             <Link
