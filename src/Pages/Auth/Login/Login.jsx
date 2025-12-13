@@ -71,7 +71,7 @@ const Login = () => {
             {/* Forgot Password */}
             <div className="mt-2 mb-4">
               <Link
-                to="/forget-password"
+                to="/auth/forget-password"
                 className="text-sm text-gray-500 hover:underline cursor-pointer"
               >
                 Forget Password?
@@ -91,7 +91,7 @@ const Login = () => {
           <p className="mt-4 text-sm text-gray-600">
             Don’t have any account?{' '}
             <Link
-              to="/register"
+              to="/auth/register"
               className="text-green-600 font-semibold cursor-pointer hover:underline"
             >
               Register

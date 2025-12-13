@@ -45,60 +45,60 @@ const Routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/coverage',
+        path: 'coverage',
         element: <Coverage />,
-        loader: () => fetch('./warehouses.json').then(res => res.json()),
+        loader: () => fetch('/warehouses.json').then(res => res.json()),
       },
       {
-        path: '/aboutUs',
+        path: 'aboutUs',
         element: <AboutUs />,
       },
       {
-        path: '/askFAQ',
+        path: 'askFAQ',
         element: <AskFAQ />,
       },
       {
-        path: '/blog',
+        path: 'blog',
         element: <Blog />,
       },
       {
-        path: '/ContactUs',
+        path: 'ContactUs',
         element: <ContactUs />,
       },
       {
-        path: '/be-a-rider',
+        path: 'be-a-rider',
         element: (
           <PrivateRoutes>
             <Rider />
           </PrivateRoutes>
         ),
-        loader: () => fetch('./warehouses.json').then(res => res.json()),
+        loader: () => fetch('/warehouses.json').then(res => res.json()),
       },
       {
-        path: '/SendParcel',
+        path: 'SendParcel',
         element: (
           <PrivateRoutes>
             <SendParcel />
           </PrivateRoutes>
         ),
-        loader: () => fetch('./warehouses.json').then(res => res.json()),
+        loader: () => fetch('/warehouses.json').then(res => res.json()),
       },
     ],
   },
   {
-    path: '/auth',
+    path: 'auth',
     element: <AuthLayout />,
     children: [
       {
-        path: '/login',
+        path: 'login',
         element: <Login />,
       },
       {
-        path: '/register',
+        path: 'register',
         element: <Register />,
       },
       {
-        path: '/forget-password',
+        path: 'forget-password',
         element: <ForgetPassword />,
       },
     ],
@@ -112,28 +112,28 @@ const Routes = createBrowserRouter([
     ),
     children: [
       {
-        path: '/my-parcels',
+        path: 'my-parcels',
         element: <MyParcel />,
       },
       {
-        path: '/payment/:parcelId',
+        path: 'payment/:parcelId',
         element: <Payment />,
       },
       {
-        path: '/payment-success',
+        path: 'payment-success',
         element: <PaymentSuccess />,
       },
       {
-        path: '/payment-cancelled',
+        path: 'payment-cancelled',
         element: <PaymentCancel />,
       },
       {
-        path: '/paymentHistory',
+        path: 'paymentHistory',
         element: <PaymentHistory />,
       },
       // rider related routes
       {
-        path: '/assignedTasks',
+        path: 'assignedTasks',
         element: (
           <RiderRoute>
             <AssignedTasks />
@@ -141,7 +141,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: '/completedTasks',
+        path: 'completedTasks',
         element: (
           <RiderRoute>
             <CompletedTasks />
@@ -150,7 +150,7 @@ const Routes = createBrowserRouter([
       },
       // admin related routes
       {
-        path: '/assignRider',
+        path: 'assignRider',
         element: (
           <AdminRoute>
             <AssignRider />
@@ -158,7 +158,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: '/approve-rider',
+        path: 'approve-rider',
         element: (
           <AdminRoute>
             <ApproveRiders />
@@ -166,7 +166,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: '/user-management',
+        path: 'user-management',
         element: (
           <AdminRoute>
             <UserManagement />

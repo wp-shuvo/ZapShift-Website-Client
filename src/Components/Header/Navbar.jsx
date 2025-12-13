@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li>
+      {/* <li>
         <NavLink
           to="/Services"
           className={({ isActive }) =>
@@ -33,7 +33,7 @@ const Navbar = () => {
         >
           Services
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink
           to="/SendParcel"
@@ -198,7 +198,7 @@ const Navbar = () => {
             </button>
           ) : (
             <Link
-              to="/login"
+              to="/auth/login"
               className="btn max-sm:hidden rounded-lg border border-gray-300 bg-white px-6 "
             >
               Sign In
