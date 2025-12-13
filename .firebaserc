@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "zapshift-353a8",
+    "prod": "zapshift-353a8"
+  },
+  "targets": {},
+  "etags": {}
+}

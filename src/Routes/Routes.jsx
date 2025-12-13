@@ -86,20 +86,20 @@ const Routes = createBrowserRouter([
     ],
   },
   {
-    path: '/',
+    path: '/auth',
     element: <AuthLayout />,
     children: [
       {
         path: '/login',
-        Component: Login,
+        element: <Login />,
       },
       {
         path: '/register',
-        Component: Register,
+        element: <Register />,
       },
       {
         path: '/forget-password',
-        Component: ForgetPassword,
+        element: <ForgetPassword />,
       },
     ],
   },
@@ -112,28 +112,28 @@ const Routes = createBrowserRouter([
     ),
     children: [
       {
-        path: 'my-parcels',
+        path: '/my-parcels',
         element: <MyParcel />,
       },
       {
-        path: 'payment/:parcelId',
+        path: '/payment/:parcelId',
         element: <Payment />,
       },
       {
-        path: 'payment-success',
+        path: '/payment-success',
         element: <PaymentSuccess />,
       },
       {
-        path: 'payment-cancelled',
+        path: '/payment-cancelled',
         element: <PaymentCancel />,
       },
       {
-        path: 'paymentHistory',
+        path: '/paymentHistory',
         element: <PaymentHistory />,
       },
       // rider related routes
       {
-        path: 'assignedTasks',
+        path: '/assignedTasks',
         element: (
           <RiderRoute>
             <AssignedTasks />
@@ -141,7 +141,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: 'completedTasks',
+        path: '/completedTasks',
         element: (
           <RiderRoute>
             <CompletedTasks />
@@ -150,7 +150,7 @@ const Routes = createBrowserRouter([
       },
       // admin related routes
       {
-        path: 'assignRider',
+        path: '/assignRider',
         element: (
           <AdminRoute>
             <AssignRider />
@@ -158,7 +158,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: 'approve-rider',
+        path: '/approve-rider',
         element: (
           <AdminRoute>
             <ApproveRiders />
@@ -166,7 +166,7 @@ const Routes = createBrowserRouter([
         ),
       },
       {
-        path: 'user-management',
+        path: '/user-management',
         element: (
           <AdminRoute>
             <UserManagement />
