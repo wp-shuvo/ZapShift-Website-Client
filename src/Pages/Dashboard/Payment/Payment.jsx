@@ -35,6 +35,8 @@ const Payment = () => {
     window.location.href = res.data.url;
   };
 
+  console.log(parcel.parcelName);
+
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">Parcel Payment</h2>

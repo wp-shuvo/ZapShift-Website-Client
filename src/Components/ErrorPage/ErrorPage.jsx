@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
-import ErrorImage from '../../assets/img/ERRORIMAGE.png';
-
+import Lottie from 'lottie-react';
+import errorAnimation from '../../assets/animations/error.json';
 const ErrorPage = () => {
   return (
     <div className=" font-bold flex flex-col justify-center text-center items-center w-screen h-screen ">
-      <img src={ErrorImage} alt="Error Image" />
+      <Lottie
+        animationData={errorAnimation}
+        loop={false}
+        autoplay
+        style={{ width: 200, height: 200 }}
+      />
       <h1 className="text-5xl text-red-600">
         Oops! 404 Error - Page Not Found
       </h1>

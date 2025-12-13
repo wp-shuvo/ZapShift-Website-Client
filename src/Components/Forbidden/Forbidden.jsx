@@ -1,10 +1,15 @@
 import Lottie from 'lottie-react';
-import lockImage from '../../assets/img/lock.png';
+import forbiddenAnimation from '../../assets/animations/forbidden.json';
 import { Link } from 'react-router';
 const Forbidden = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <img src={lockImage} className="w-32 mb-6" alt="" />
+      <Lottie
+        animationData={forbiddenAnimation}
+        loop={false}
+        autoplay
+        style={{ width: 200, height: 200 }}
+      />
       <h1 className="text-3xl font-bold text-red-500">
         You Are Forbidden to Access This Page
       </h1>

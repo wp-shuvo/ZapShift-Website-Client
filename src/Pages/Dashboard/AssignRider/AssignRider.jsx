@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
-import { RiEBike2Fill } from 'react-icons/ri';
+import { RiEBike2Fill, RiEBikeLine } from 'react-icons/ri';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { CloudHail } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const AssignRider = () => {
   const [selectedParcel, setSelectedParcel] = useState(null);
   const axiosSecure = useAxiosSecure();
   const riderMordalRef = useRef();
 
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], refetch: parcelRefetch } = useQuery({
     queryKey: ['parcels', 'pending-pickup'],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -24,16 +25,36 @@ const AssignRider = () => {
     enabled: !!selectedParcel,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/riders?status=approved&district=${selectedParcel?.senderDistrict}&workStatus=available`
+        `/riders?status=approved&riderDistrict=${selectedParcel?.senderDistrict}&workStatus=available`
       );
       return res.data;
     },
   });
+  // console.log(riders);
 
   const openAssignRiderMordal = parcel => {
     setSelectedParcel(parcel);
     console.log(parcel.senderDistrict);
     riderMordalRef.current.showModal();
+  };
+
+  const handleAssignRider = rider => {
+    const riderAssignInfo = {
+      riderId: rider._id,
+      riderName: rider.name,
+      riderEmail: rider.email,
+      parcelId: selectedParcel._id,
+    };
+    axiosSecure
+      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .then(res => {
+        console.log(res.data);
+        parcelRefetch();
+        riderMordalRef.current.close();
+        if (res.data.modifiedCount) {
+          toast.success('Parcel has been assigned to the rider successfully.');
+        }
+      });
   };
 
   return (
@@ -104,7 +125,7 @@ const AssignRider = () => {
                     onClick={() => openAssignRiderMordal(parcel)}
                     className="btn btn-sm btn-primary text-black"
                   >
-                    Assign Rider
+                    Find Rider
                   </button>
                 </td>
               </tr>
@@ -117,10 +138,54 @@ const AssignRider = () => {
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Riders: {riders.length}</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
+          <div>
+            <div className="flex items-center p-4 w-full mb-3.5 bg-gray-200 rounded-lg">
+              <div className="p-3 bg-gray-300 rounded-full shadow mr-4">
+                <RiEBikeLine className="text-gray-600 w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 font-medium">
+                  Active Riders
+                </p>
+                <p className="text-lg font-bold text-gray-800">
+                  {riders.length}
+                </p>
+              </div>
+            </div>
+            {/* Active Rider Table */}
+            <div className="overflow-x-auto">
+              <table className="table">
+                <thead>
+                  <tr className="bg-gray-100 text-gray-700">
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Emain</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {riders.map((rider, index) => (
+                    <tr key={rider._id}>
+                      <td>{index + 1}</td>
+
+                      <td className="font-medium text-sm">{rider.name}</td>
+
+                      <td className="font-semibold text-sm">{rider.email}</td>
+                      <td>
+                        <button
+                          onClick={() => handleAssignRider(rider)}
+                          className="btn btn-sm btn-primary text-black"
+                        >
+                          Assign
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

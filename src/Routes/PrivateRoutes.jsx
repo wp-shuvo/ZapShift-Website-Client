@@ -1,6 +1,7 @@
 import React, { use } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
+import Loading from '../Components/Loading/Loading';
 
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = use(AuthContext);
@@ -9,9 +10,10 @@ const PrivateRoutes = ({ children }) => {
 
   if (loading) {
     return (
-      <div className=" w-full h-full flex justify-center mt-2.5 ">
-        <span className="loading loading-dots content-center loading-xl"></span>
-      </div>
+      <Loading></Loading>
+      // <div className=" w-full h-full flex justify-center mt-2.5 ">
+      //   <span className="loading loading-dots content-center loading-xl"></span>
+      // </div>
     );
   }
   if (user) {

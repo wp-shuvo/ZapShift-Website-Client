@@ -1,10 +1,10 @@
 import React from 'react';
-import useRole from '../Hooks/useRole';
 import useAuth from '../Hooks/useAuth';
-import Forbidden from '../Components/Forbidden/Forbidden';
+import useRole from '../Hooks/useRole';
 import Loading from '../Components/Loading/Loading';
+import Forbidden from '../Components/Forbidden/Forbidden';
 
-const AdminRoute = ({ children }) => {
+const RiderRoute = ({ children }) => {
   const { loading } = useAuth();
   const { role, roleLoding } = useRole();
 
@@ -16,10 +16,10 @@ const AdminRoute = ({ children }) => {
       // </div>
     );
   }
-  if (role !== 'admin') {
+  if (role !== 'rider') {
     return <Forbidden></Forbidden>;
   }
   return children;
 };
 
-export default AdminRoute;
+export default RiderRoute;

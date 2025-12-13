@@ -10,7 +10,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className=" bg-gray-50 px-4 py-12 flex items-center justify-center">
+    <div className="  px-4 py-12 flex items-center justify-center">
       <div className="max-w-5xl w-full bg-white shadow-lg rounded-2xl p-8 md:p-12">
         {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-8">

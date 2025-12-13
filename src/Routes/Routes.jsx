@@ -23,6 +23,11 @@ import ApproveRiders from '../Pages/Dashboard/ApproveRider/ApproveRiders';
 import UserManagement from '../Pages/Dashboard/UserManagement/UserManagement';
 import AdminRoute from './AdminRoute';
 import AssignRider from '../Pages/Dashboard/AssignRider/AssignRider';
+import AskFAQ from '../Pages/Home/FAQ/AskFAQ';
+import AssignedTasks from '../Pages/Dashboard/AssignedTasks/AssignedTasks';
+import RiderRoute from './RiderRoute';
+import CompletedTasks from '../Pages/Dashboard/CompletedTasks/CompletedTasks';
+import Blog from '../Pages/Blog/Blog';
 
 const Routes = createBrowserRouter([
   {
@@ -47,6 +52,14 @@ const Routes = createBrowserRouter([
       {
         path: '/aboutUs',
         element: <AboutUs />,
+      },
+      {
+        path: '/askFAQ',
+        element: <AskFAQ />,
+      },
+      {
+        path: '/blog',
+        element: <Blog />,
       },
       {
         path: '/ContactUs',
@@ -118,9 +131,31 @@ const Routes = createBrowserRouter([
         path: 'paymentHistory',
         element: <PaymentHistory />,
       },
+      // rider related routes
+      {
+        path: 'assignedTasks',
+        element: (
+          <RiderRoute>
+            <AssignedTasks />
+          </RiderRoute>
+        ),
+      },
+      {
+        path: 'completedTasks',
+        element: (
+          <RiderRoute>
+            <CompletedTasks />
+          </RiderRoute>
+        ),
+      },
+      // admin related routes
       {
         path: 'assignRider',
-        element: <AssignRider />,
+        element: (
+          <AdminRoute>
+            <AssignRider />
+          </AdminRoute>
+        ),
       },
       {
         path: 'approve-rider',

@@ -13,9 +13,10 @@ import logo from '../assets/img/logoNav.png';
 import useAuth from '../Hooks/useAuth';
 import { FaMoneyBillTransfer, FaMotorcycle } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
-import { FaUserFriends } from 'react-icons/fa';
+import { FaTasks, FaUserFriends } from 'react-icons/fa';
 import { RiEBike2Fill } from 'react-icons/ri';
 import useRole from '../Hooks/useRole';
+import { MdOutlineTaskAlt } from 'react-icons/md';
 
 const DashboardLayout = () => {
   const { user, singOutUser } = useAuth();
@@ -76,14 +77,24 @@ const DashboardLayout = () => {
       {role === 'rider' && (
         <>
           <NavLink
-            // to="/dashboard/assignRider"
+            to="/dashboard/assignedTasks"
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
                 isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
               }`
             }
           >
-            <RiEBike2Fill /> Assign Rider
+            <FaTasks /> Assigned Tasks
+          </NavLink>
+          <NavLink
+            to="/dashboard/completedTasks"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-[#caeb66] text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <MdOutlineTaskAlt /> Completed Tasks
           </NavLink>
         </>
       )}

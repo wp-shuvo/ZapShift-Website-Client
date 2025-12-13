@@ -3,9 +3,11 @@ import { Link, NavLink } from 'react-router';
 import NavLogo from '../../assets/img/logoNav.png';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
+import useRole from '../../Hooks/useRole';
 
 const Navbar = () => {
   const { user, singOutUser } = useAuth();
+  const { role } = useRole();
 
   const handleSignOut = () => {
     singOutUser()
@@ -68,7 +70,7 @@ const Navbar = () => {
           About Us
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink
           to="/pricing"
           className={({ isActive }) =>
@@ -79,7 +81,7 @@ const Navbar = () => {
         >
           Pricing
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink
           to="/blog"
@@ -104,7 +106,7 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
-      {user && (
+      {role === 'user' && (
         <li>
           <NavLink
             to="/dashboard/my-parcels"
@@ -115,6 +117,34 @@ const Navbar = () => {
             }
           >
             My Parcels
+          </NavLink>
+        </li>
+      )}
+      {role === 'rider' && (
+        <li>
+          <NavLink
+            to="/dashboard/assignedTasks"
+            className={({ isActive }) =>
+              `font-semibold ${
+                isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+              }`
+            }
+          >
+            Assigned Tasks
+          </NavLink>
+        </li>
+      )}
+      {role === 'admin' && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `font-semibold ${
+                isActive ? 'text-[#33929d]' : 'text-black font-extrabold'
+              }`
+            }
+          >
+            Dashboard
           </NavLink>
         </li>
       )}
