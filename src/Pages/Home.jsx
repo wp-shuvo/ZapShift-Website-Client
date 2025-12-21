@@ -8,9 +8,7 @@ import PrioritySection from './Home/PrioritySection';
 import Reviews from './Home/Reviews/Reviews';
 import FAQ from './Home/FAQ/FAQ';
 
-const reviewsPromise = fetch('public/data/reviews.json').then(res =>
-  res.json()
-);
+// const reviewsPromise = fetch('/data/reviews.json').then(res => res.json());
 
 const Home = () => {
   return (
@@ -34,9 +32,9 @@ const Home = () => {
       <div className="mb-20">
         <PrioritySection />
       </div>
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <Reviews reviewsPromise={reviewsPromise} />
-      </div>
+      </div> */}
       <div className="mb-20">
         <FAQ />
       </div>
