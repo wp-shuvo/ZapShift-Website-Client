@@ -28,6 +28,7 @@ import AssignedTasks from '../Pages/Dashboard/AssignedTasks/AssignedTasks';
 import RiderRoute from './RiderRoute';
 import CompletedTasks from '../Pages/Dashboard/CompletedTasks/CompletedTasks';
 import Blog from '../Pages/Blog/Blog';
+import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard';
 
 const Routes = createBrowserRouter([
   {
@@ -149,6 +150,14 @@ const Routes = createBrowserRouter([
         ),
       },
       // admin related routes
+      {
+        index: true,
+        element: (
+          <AdminRoute>
+            <Dashboard />
+          </AdminRoute>
+        ),
+      },
       {
         path: 'assignRider',
         element: (

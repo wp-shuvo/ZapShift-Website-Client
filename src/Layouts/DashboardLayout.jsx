@@ -38,16 +38,6 @@ const DashboardLayout = () => {
     <nav className="flex flex-col px-4 py-6 space-y-1 text-[#03373d]">
       <span className="text-xs font-bold text-gray-600 px-3">MENU</span>
 
-      <NavLink
-        to="/dashboard"
-        className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
-            isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
-          }`
-        }
-      >
-        <FiHome /> Dashboard
-      </NavLink>
       {role === 'user' && (
         <>
           <NavLink
@@ -100,6 +90,16 @@ const DashboardLayout = () => {
       )}
       {role === 'admin' && (
         <>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg font-medium ${
+                isActive ? 'bg-gray-100 text-[#03373d]' : 'text-gray-600'
+              }`
+            }
+          >
+            <FiHome /> Dashboard
+          </NavLink>
           <NavLink
             to="/dashboard/approve-rider"
             className={({ isActive }) =>
