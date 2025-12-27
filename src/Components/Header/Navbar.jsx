@@ -4,6 +4,8 @@ import NavLogo from '../../assets/img/logoNav.png';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useRole from '../../Hooks/useRole';
+import { IoIosLogIn, IoIosLogOut } from 'react-icons/io';
+import { LuBike } from 'react-icons/lu';
 
 const Navbar = () => {
   const { user, singOutUser } = useAuth();
@@ -192,25 +194,25 @@ const Navbar = () => {
           {user ? (
             <button
               onClick={handleSignOut}
-              className="btn max-sm:hidden rounded-lg border border-gray-300 bg-white px-6"
+              className="btn rounded-lg border border-gray-300 bg-white px-6"
             >
-              Sign Out
+              <IoIosLogOut /> <span className="max-sm:hidden">Sign Out</span>
             </button>
           ) : (
             <Link
               to="/auth/login"
-              className="btn max-sm:hidden rounded-lg border border-gray-300 bg-white px-6 "
+              className="btn rounded-lg border border-gray-300 bg-white px-6 "
             >
-              Sign In
+              <IoIosLogIn /> <span className="max-sm:hidden">Sign In</span>
             </Link>
           )}
 
           {/* Be a rider button */}
           <Link
             to="/be-a-rider"
-            className="btn rounded-lg max-sm:btn-sm bg-lime-300 text-black font-semibold px-6 flex items-center gap-2"
+            className="btn rounded-lg max-sm:btn-sm bg-lime-300 text-black font-semibold px-6 flex items-center gap-2 max-sm:py-5"
           >
-            Be a rider
+            <LuBike /> <span className="max-sm:hidden">Be a rider</span>
             <span className=" hidden md:block">
               <span className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center">
                 <svg
