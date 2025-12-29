@@ -19,7 +19,11 @@ const PaymentSuccess = () => {
     setLoading(true);
 
     axiousSecure
-      .patch(`/payment-success?session_id=${sessionId}`)
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/payment-success?session_id=${sessionId}`
+      )
       .then(res => {
         setPaymentInfo({
           transactionId: res.data.transactionId,
