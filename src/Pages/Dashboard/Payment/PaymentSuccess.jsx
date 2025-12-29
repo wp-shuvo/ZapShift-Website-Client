@@ -6,24 +6,36 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const [paymentInfo, setPaymentInfo] = useState({});
+  const [loading, setLoading] = useState(true);
   const sessionId = searchParams.get('session_id');
   console.log(sessionId);
 
   const axiousSecure = useAxiosSecure();
 
   useEffect(() => {
-    if (sessionId) {
-      axiousSecure
-        .patch(`/payment-success?session_id=${sessionId}`)
-        .then(res => {
-          console.log(res.data);
-          setPaymentInfo({
-            transactionId: res.data.transactionId,
-            trackingId: res.data.trackingId,
-          });
+    if (!sessionId) return;
+
+    setLoading(true);
+
+    axiousSecure
+      .patch(`/payment-success?session_id=${sessionId}`)
+      .then(res => {
+        setPaymentInfo({
+          transactionId: res.data.transactionId,
+          trackingId: res.data.trackingId,
         });
-    }
+      })
+      .catch(err => {
+        console.error('Payment confirmation failed:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [sessionId, axiousSecure]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
