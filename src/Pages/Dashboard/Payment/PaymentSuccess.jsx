@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { FiCheckCircle } from 'react-icons/fi';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Loading from '../../../Components/Loading/Loading';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -34,7 +35,7 @@ const PaymentSuccess = () => {
   }, [sessionId, axiousSecure]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   return (
