@@ -1,16 +1,100 @@
-# React + Vite
+# 🚚 ZapShift – Courier Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ZapShift is a full-featured **courier management web application** designed to simplify parcel delivery operations for **users, administrators, and delivery riders**. The platform provides a seamless experience for **booking, tracking, and managing parcels**, ensuring efficiency, transparency, and real-time updates throughout the delivery process.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Project Description
 
-## React Compiler
+ZapShift streamlines courier services by offering an intuitive interface, automated pricing, real-time tracking, and role-based dashboards. It enables smooth communication between customers, riders, and administrators while supporting nationwide delivery operations.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 📦 Parcel Management
+- Easy parcel booking with **automated pricing**
+- Pricing based on **weight, distance, and service type**
+- **Real-time tracking** from pickup to delivery
+- Parcel routing and delivery status updates
+- Payment and delivery management for admins and riders
+
+---
+
+### 🔐 Role-Based Access Control
+
+#### 👤 User Dashboard
+- Book parcels
+- Track shipments in real time
+- View delivery history
+- Provide feedback
+
+#### 🛠️ Admin Dashboard
+- Manage the entire delivery ecosystem
+- Assign parcels to riders
+- Manage warehouses
+- Monitor operational metrics
+- Track payments and commissions
+
+#### 🚴 Rider Dashboard
+- View assigned deliveries
+- Update parcel delivery status
+- Track earnings with a transparent commission system
+
+---
+
+### 🌍 Nationwide Coverage
+- Supports deliveries across **64 districts**
+- Scalable for **urban and rural** delivery operations
+- Transparent and fair commission system for riders
+
+---
+
+### 🔔 Real-Time Communication & Notifications
+- Automatic notifications for:
+  - Parcel pickup
+  - In-transit status
+  - Successful delivery
+- Keeps users, riders, and admins informed
+- Reduces miscommunication and delays
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React.js**
+- **Tailwind CSS**
+- **DaisyUI**
+- **Axios**
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+
+### Authentication & Security
+- **Firebase Authentication**
+- **JWT (JSON Web Tokens)**
+- Role-based access control
+
+### Other Tools
+- Axios for API communication
+- Real-time updates and notifications
+
+---
+
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Node.js
+- MongoDB
+- Git
+
+### Clone the Repository
+```bash
+git clone [https://github.com/wp-shuvo/ZapShift-Website-Client.git](https://github.com/wp-shuvo/ZapShift-Website-Client.git)
+cd zapshift
