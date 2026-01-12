@@ -67,6 +67,7 @@ ZapShift streamlines courier services by offering an intuitive interface, automa
 - **Tailwind CSS**
 - **DaisyUI**
 - **Axios**
+- **Tanstack Query**
 
 ### Backend
 - **Node.js**
